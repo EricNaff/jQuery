@@ -1,0 +1,258 @@
+function initialize() {
+var myLatlng = new google.maps.LatLng(33.731764,-118.163795);
+  var mapOptions = {
+    zoom: 17,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+}
+
+function loadScript() {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "http://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY_HERE&sensor=true&callback=initialize";
+  document.body.appendChild(script);
+}
+window.onload = initialize;	
+
+//Places Marker On Click
+/*var map;
+function initialize() {
+  var myLatlng = new google.maps.LatLng(33.731764,-118.163795);
+  var mapOptions = {
+    zoom: 12,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng);
+  });
+}
+
+function placeMarker(location) {
+  var myLatlng = new google.maps.LatLng(33.731764,-118.163795);
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map
+  });
+
+  map.setCenter(location);
+}
+*/
+
+//Placed Markers
+function initialize() {    
+  var mylatlng = new google.maps.LatLng(33.750356,-118.160319);
+  var latlng = new google.maps.LatLng(33.762434,-118.181691);
+  var ala = new google.maps.LatLng(33.764454,-118.182501); 
+  var cherry = new google.maps.LatLng(33.762559,-118.168752);
+  var chry = new google.maps.LatLng(33.763313,-118.167996);
+  var belmont = new google.maps.LatLng(33.757938,-118.148131); 
+  var clrmnt = new google.maps.LatLng(33.752194,-118.133154); 
+  var tmpl = new google.maps.LatLng(33.761185,-118.16003);
+  var base = new google.maps.LatLng(33.772755,-118.158769);
+  var mark = new google.maps.LatLng(33.716748,-117.988);
+  var angrents = new google.maps.LatLng(33.63545,-116.249817);
+  var ma = new google.maps.LatLng(39.38736,-76.503519);
+  var alegria = new google.maps.LatLng(33.768546,-118.19253);
+  var kafeneo = new google.maps.LatLng(33.77154,-118.158769);
+  var yummy = new google.maps.LatLng(33.771913,-118.159458);
+  var pike = new google.maps.LatLng(33.771614,-118.169163);
+  var natraj = new google.maps.LatLng(33.759513,-118.133492);
+  var npls = new google.maps.LatLng(33.756507,-118.122731);
+  var image = '/images/for_site/templeico.png';
+  var checkin = '/images/for_site/checkinmk.png';
+  var food = '/images/for_site/restrntico.png';
+  var eric = '/images/for_site/lbcleanuplogoico.png';
+  var options = {     
+  zoom: 14,     
+  center: mylatlng,     
+  mapTypeId: google.maps.MapTypeId.ROADMAP    
+  };    
+  var map = new google.maps.Map(document.getElementById("map_canvas"), options);
+
+  var marker = new google.maps.Marker({      
+    position: latlng,       
+    map: map,       
+    title:"Alamitos"
+  });
+  var marker = new google.maps.Marker({      
+    position: cherry,       
+    map: map,       
+    title:"Cherry"
+  });
+  var marker = new google.maps.Marker({
+	position: belmont,
+	map:map,
+	title:"Belmont Pier"
+  });
+  var marker = new google.maps.Marker({
+	position: clrmnt,
+	map:map,
+	title:"54th Pl Bike Path"
+  });
+   var marker = new google.maps.Marker({
+	position: tmpl,
+	map:map,
+	icon:image,
+	title:"Temple Ave"
+  });
+  var marker = new google.maps.Marker({
+	position: base,
+	map:map,
+	icon:eric,
+	title:"Eric and Angie!"
+  });
+   var marker = new google.maps.Marker({
+	position: chry,
+	map:map,
+	icon:checkin,
+	title:"Cherry Ave Check-In"
+  });
+  var marker = new google.maps.Marker({
+	position: ala,
+	map:map,
+	icon:checkin,
+	title:"Alamitos Check-In"
+  });
+  var marker = new google.maps.Marker({
+	position: mark,
+	map:map,
+	icon:image,
+	title:"Mark's House!"
+  });
+  var marker = new google.maps.Marker({
+	position: angrents,
+	map:map,
+	icon:image,
+	title:"Angies Ps!"
+  });
+  var marker = new google.maps.Marker({
+	position: ma,
+	map:map,
+	icon:image,
+	title:"Susan!"
+  });
+   var marker = new google.maps.Marker({
+	position: alegria,
+	map:map,
+	icon:food,
+	title:"Alegria-Cocina Latina"
+  });
+  var marker = new google.maps.Marker({
+	position: kafeneo,
+	map:map,
+	icon:food,
+	title:"Kafe Neo- American Food w/Greek Soul"
+  });
+  var marker = new google.maps.Marker({
+	position: yummy,
+	map:map,
+	icon:food,
+	title:"Yummy Garden"
+  });
+  var marker = new google.maps.Marker({
+	position: pike,
+	map:map,
+	icon:food,
+	title:"Pike Restaurant and Bar"
+  });
+  var marker = new google.maps.Marker({
+	position: natraj,
+	map:map,
+	icon:food,
+	title:"Natraj- Cuisine of India "
+  });
+   var marker = new google.maps.Marker({
+	position: npls,
+	map:map,
+	icon:food,
+	title:"Various Food- Pizza, Breakfast, etc..."
+  });
+  
+}
+
+  
+/*
+
+ // Add 5 markers to the map at random locations.
+var map;
+function initialize() {
+  var myLatlng = new google.maps.LatLng(33.63949,-118.16268);
+  var mapOptions = {
+    zoom: 12,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+  // Add 5 markers to the map at random locations.
+  var southWest = new google.maps.LatLng(33.762113,-118.18182);
+  var northEast = new google.maps.LatLng(33.753817,-118.128669);
+  var bounds = new google.maps.LatLngBounds(southWest,northEast);
+  map.fitBounds(bounds);
+  var lngSpan = northEast.lng() - southWest.lng();
+  var latSpan = northEast.lat() - southWest.lat();
+  for (var i = 0; i < 5; i++) {
+    var location = new google.maps.LatLng(southWest.lat() + latSpan * Math.random(),
+        southWest.lng() + lngSpan * Math.random());
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    var j = i + 1;
+    marker.setTitle(j.toString());
+    attachSecretMessage(marker, i);
+  }
+}
+
+// The five markers show a secret message when clicked
+// but that message is not within the marker's instance data.
+function attachSecretMessage(marker, number) {
+  var message = ["LBCleanup!","Please","Tell","A","Friend"];
+  var infowindow = new google.maps.InfoWindow(
+      { content: message[number],
+        size: new google.maps.Size(50,50)
+      });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+	
+  });
+  
+}
+*/
+/*function initialize() {
+  var myLatLng = new google.maps.LatLng(33.63949,-118.16268);
+  var mapOptions = {
+    zoom: 10,
+    center: myLatLng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  var map = new google.maps.Map(document.getElementById('map_canvas'),
+      mapOptions);
+
+  var infowindow = new google.maps.InfoWindow({
+    content: 'Change the zoom level',
+    position: myLatLng
+  });
+  infowindow.open(map);
+
+  google.maps.event.addListener(map, 'zoom_changed', function() {
+    var zoomLevel = map.getZoom();
+    map.setCenter(myLatLng);
+    infowindow.setContent('Zoom: ' + zoomLevel);
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+*/
+
+  
+  
+  
+  });
