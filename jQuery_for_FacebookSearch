@@ -1,0 +1,120 @@
+// JavaScript Document
+
+$(document).ready(function() {
+	
+	var fuzzyFacebookTime = (function(){
+ 
+  fuzzyTime.defaultOptions={
+    // time display options
+    relativeTime : 48,
+    // language options
+    monthNames : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    amPm : ['AM', 'PM'],
+    ordinalSuffix : function(n) {return ['th','st','nd','rd'][n<4 || (n>20 && n % 10<4) ? n % 10 : 0]}
+  }
+ 
+  function fuzzyTime (timeValue, options) {
+ 
+    var options=options||fuzzyTime.defaultOptions, 
+        date=parseDate(timeValue),
+        delta=parseInt(((new Date()).getTime()-date.getTime())/1000),
+        relative=options.relativeTime,
+        cutoff=+relative===relative ? relative*60*60 : Infinity;
+ 
+    if (relative===false || delta>cutoff)
+      return formatTime(date, options)+' '+formatDate(date, options);
+ 
+    if (delta<60) return 'less than a minute ago';
+    var minutes=parseInt(delta/60 +0.5);
+    if (minutes <= 1) return 'about a minute ago';
+    var hours=parseInt(minutes/60 +0.5);
+    if (hours<1) return minutes+' minutes ago';
+    if (hours==1) return 'about an hour ago';
+    var days=parseInt(hours/24 +0.5);
+    if (days<1) return hours+' hours ago';
+    if (days==1) return formatTime(date, options)+' yesterday';
+    var weeks=parseInt(days/7 +0.5);
+    if (weeks<2) return formatTime(date, options)+' '+days+' days ago';
+    var months=parseInt(weeks/4.34812141 +0.5);
+    if (months<2) return weeks+' weeks ago';
+    var years=parseInt(months/12 +0.5);
+    if (years<2) return months+' months ago';
+    return years+' years ago';
+  }
+ 
+  function parseDate (str) {
+    var v=str.replace(/[T\+]/g,' ').split(' ');
+    return new Date(Date.parse(v[0] + " " + v[1] + " UTC"));
+  }
+ 
+  function formatTime (date, options) {
+    var h=date.getHours(), m=''+date.getMinutes(), am=options.amPm;
+    return (h>12 ? h-12 : h)+':'+(m.length==1 ? '0' : '' )+m+' '+(h<12 ? am[0] : am[1]);
+  }
+ 
+  function formatDate (date, options) {
+    var mon=options.monthNames[date.getMonth()],
+        day=date.getDate(),
+        year=date.getFullYear(),
+        thisyear=(new Date()).getFullYear(),
+        suf=options.ordinalSuffix(day);
+ 
+    return mon+' '+day+suf+(thisyear!=year ? ', '+year : '');
+  }
+ 
+  return fuzzyTime;
+ 
+}());
+	
+	function searchFB(userSearchparameter) {
+	 
+	$.getJSON('https://graph.facebook.com/search?q=' + userSearchparameter + '&type=post&callback=?&access_token=186038674900790|2mGSK8yzFi1gk9b1J6Nrn4Ho2Z8', function(fbResults){
+		$.each(fbResults.data, function() {
+			// Data Templating
+			$('<article class="fbResults"></article>').append (	
+				
+				'<section class="resultsSource"><h6 class="shareHeader">' +
+				'<img class="fromUser" src="https://graph.facebook.com/' + this.from.id + '/picture" height="50" width="50" alt="' + this.from.name + '">' +
+				'<a href="http://www.facebook.com/' + this.from.id + '" class="fromName">' + this.from.name +'</a> shared a <a class="typeLink" href="' + this.link + '">' + this.	
+				type + '</a> </h6>' +
+				'<time class="createdTime" datetime="' + this.created_time + '">' + fuzzyFacebookTime(this.created_time.replace(/-/g,'/')) + ' &middot;</time>' +
+				'<img class="typeLinkIcon" src="' + this.icon + '" alt="icon"></section>' +
+				'<section class="resultsDescription"><h6><a class="shareLink" href="' + this.link + '">' +
+				'<img class="sharePicture" src="' + this.picture + '" height="90" width="90" alt="' + this.from.id + '">' +
+				'<span class="shareName">' + this.name + '</span>' +
+				'<span class="shareCaption">' + this.caption + '</span>' +
+				'<span class="shareDescription">' + this.message + '</span>' +
+				'</a></h6></section>' +
+				'<iframe class="linkShare" src="http://facebook.com/plugins/like.php?href=' + encodeURIComponent("https://www.facebook.com/permalink.php?story_fbid="+this.id.split	
+				("_")[0]+"&id="+this.id.split("_")[1]) + '"></iframe>'
+			).appendTo('body');
+			
+			$('.fbResults section.resultsDescription span:contains(undefined)').remove();
+			$('.fbResults').find('img[src="undefined"]').remove();
+			$('img.loadgif').remove();
+		})
+		
+		
+		
+	})
+	}
+	$("button.startSearch").click(function() {
+		$('.fbResults').remove();
+		$('.fbResults, img.loadgif').remove();
+		$('body').append('<img class="loadgif" src="img/load.gif" width="52" height="52">');
+		var searchThis = $('.searchQuery').val();
+		searchFB(searchThis);
+	});
+	$("input.searchQuery").keypress(function(event) {
+		$('.fbResults').remove();
+		if (event.which == 13) {						//enter
+        event.preventDefault();
+        $('.fbResults, img.loadgif').remove();
+		$('body').append('<img class="loadgif" src="img/load.gif" width="52" height="52">');
+			var searchThis = $('.searchQuery').val();
+			searchFB(searchThis);
+				
+		}
+	});
+    
+});
