@@ -68,7 +68,7 @@ $(document).ready(function() {
 	
 	function searchFB(userSearchparameter) {
 	 
-	$.getJSON('https://graph.facebook.com/search?q=' + userSearchparameter + '&type=post&callback=?&access_token=186038674900790|2mGSK8yzFi1gk9b1J6Nrn4Ho2Z8', function(fbResults){
+	$.getJSON('https://graph.facebook.com/search?q=' + userSearchparameter + '&type=post&callback=?&access_token=YOUR_ACCESS_TOKEN', function(fbResults){
 		$.each(fbResults.data, function() {
 			// Data Templating
 			$('<article class="fbResults"></article>').append (	
